@@ -1,0 +1,160 @@
+************DISPLAY************
+using System;
+namespace SE302
+{
+	public class Display
+	{
+		public Display()
+		{
+		}
+		public void drawSnake(Snake snake)
+		{
+			
+		}
+	}
+}
+**************FOOD****************
+using System;
+namespace SE302
+{
+	public class Food
+	{
+		private Point position;
+		public Food()
+		{
+		}
+		public Point getPosition()
+		{
+			return position;
+		}
+
+	}
+}
+****************GAME*******************
+using System;
+namespace SE302
+{
+	public class Game
+	{
+		public Game()
+		{
+		}
+		public void Start()
+		{
+		}
+		public void Pause() 
+		{ 
+		}
+		public void Resume()
+		{
+		}
+		public void Quit()
+		{
+		}
+	}
+}
+***************GAME*****************
+using System;
+namespace SE302
+{
+	public class Level
+	{
+		public static int HEIGHT = 25, WIDTH = 80;
+		public const int WALL = 1, EMPTY = 0;
+		public static int[,] map = new int[HEIGHT, WIDTH];
+		public static int speed = 300;
+		public Level()
+		{
+			level1();
+		}
+
+		private void level1()
+		{
+			for (int i = 0; i < HEIGHT; i++)
+			{
+				for (int j = 0; j < WIDTH; j++)
+				{
+					if (i == 0 || j == 0 || i == HEIGHT - 1 || j == WIDTH - 1)
+					{
+						// 1 - saad, hana
+						map[i, j] = WALL;
+					}
+					else
+					{
+						// 0 - hooson talbai
+						map[i, j] = EMPTY;
+					}
+				}
+			}
+			speed = 300;
+		}
+		private void level2()
+		{
+			level1();
+			speed = 250;
+			// hana nemj zurah
+		}
+
+	}
+}
+****************POINT******************
+using System;
+namespace SE302
+{
+	public class Point
+	{
+		public int x, y;
+		public Point(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+	}
+}
+******************PROGRAM*****************
+using System;
+using System.Threading;
+
+namespace SE302
+{
+	class MainClass
+	{
+		public static void Main(string[] args)
+		{
+			int x = 10, y = 10, x0 = 10, y0 = 10;
+			Console.CursorVisible = false;
+			while (true)
+			{
+				if (Console.KeyAvailable)
+				{
+					ConsoleKeyInfo key = Console.ReadKey();
+					switch (key.Key)
+					{
+						case ConsoleKey.UpArrow:
+							y = y - 1;
+							break;
+						case ConsoleKey.DownArrow:
+							y = y + 1;
+							break;
+						case ConsoleKey.LeftArrow:
+							x = x - 1;
+							break;
+						case ConsoleKey.RightArrow:
+							x = x + 1;
+							break;
+						case ConsoleKey.Escape:
+							Console.WriteLine("Game over");
+							break;
+					}
+				}
+				Thread.Sleep(100);
+				Console.SetCursorPosition(x0, y0);
+				Console.Write(' ');
+				Console.SetCursorPosition(x, y);
+				Console.Write('$');
+				x0 = x; y0 = y;
+			}
+
+		}
+	}
+}
