@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PushBlocks
+{
+    class Program
+    {
+        public static Block block;
+        static void Main(string[] args)
+        {
+            Console.CursorVisible = false;
+            DrawDisplay d = new DrawDisplay();
+            d.DrawMap();
+            Player player = new Player(5, 5);
+            d.DrawPlayer(player);
+            block = new Block(10, 4);
+            d.DrawBlock(block);
+           
+            
+            ConsoleKeyInfo keyInfo;
+            while ((keyInfo = Console.ReadKey(true)).Key != ConsoleKey.Escape)
+            {
+                int blck = player.checkIsBlock();
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        if (player.X < (Map.maparr.GetLength(1) - 1) - player.WIDTH)
+                        {
+                            
+                            player.Move(1, 0, blck);
+                        }
+                        break;
+
+                    case ConsoleKey.LeftArrow:
+                        if (player.X > Map.maparr.GetLength(1) - (Map.maparr.GetLength(1) - 1))
+                        {
+                            player.Move(-1, 0, blck);
+                        }
+                        break;
+                    
+                    case ConsoleKey.UpArrow:
+                        if (player.Y > Map.maparr.GetLength(1) - (Map.maparr.GetLength(1) - 1))
+                        {
+                            player.Move(0, -1, blck);
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (player.Y < (Map.maparr.GetLength(0) - 1) - player.LENGTH)
+                        {
+                            player.Move(0, 1, blck);
+                        }
+                        break;
+                }
+              }
+         }
+    }
+}
