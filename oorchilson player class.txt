@@ -1,0 +1,101 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PushBlocks
+{
+    public class Player
+    {
+        public int X { get; set; } // x coordinat
+        public int Y { get; set; } // y coordinat
+        public int LENGTH = 1; // 
+        public int WIDTH = 1;// 
+        public int Right, Left, Up, Down;
+        public string[,] playerbody = new string[,]
+        {
+            {"☺"}
+        };
+        public Player(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+        public void Move(int x, int y, int blck)
+        {
+            X += x;
+            Y += y;
+            DrawDisplay d = new DrawDisplay();
+            d.DrawPlayer(this);
+            
+            for (int i = 0; i < LENGTH; i++)
+            {
+                if (x == -1)
+                {
+                    if (blck == 1)
+                    {
+                        Program.block.Move(x, y);
+                        Console.SetCursorPosition(X + 1, Y);
+                    }
+                    else
+                        Console.SetCursorPosition(X + 1, Y);
+                }
+                else if (x == 1)
+                {
+                    if (blck == -1)
+                    {
+                        Program.block.Move(x, y);
+                        Console.SetCursorPosition(X - 1, Y);
+                    }
+                    else
+                        Console.SetCursorPosition(X - 1, Y);
+                }
+                else if (y == -1)
+                {
+                    if (blck == -2)
+                    {
+                        Program.block.Move(x, y);
+                        Console.SetCursorPosition(X, Y + 1);
+                    }
+                    else
+                        Console.SetCursorPosition(X, Y + LENGTH);
+                }
+                else if (y == 1)
+                {
+                    if (blck == 2)
+                    {
+                        Program.block.Move(x, y);
+                        Console.SetCursorPosition(X, Y - 1);
+                    }
+                    else
+                        Console.SetCursorPosition(X, Y - 1);
+                }
+                Console.Write(" ");
+            }
+
+        }
+        
+        public int checkIsBlock()
+        {
+            if (Y == Program.block.Y && X == Program.block.X + 1 && X + 1 < Map.MAPWIDTH - 2)
+            {
+                return 1;
+            }
+            else if (Y == Program.block.Y && X == Program.block.X - 1 && X - 1 > 1)
+            {
+                return -1;
+            }
+            else if (Y == Program.block.Y + 1 && X == Program.block.X && Y + 1 < Map.MAPLENGTH - 1)
+            {
+                return -2;
+            }
+            else if (Y == Program.block.Y - 1 && X == Program.block.X && Y - 1 > 1)
+            {
+                return 2;
+            }
+            else
+                return 0;
+        }
+    }
+}
