@@ -1,0 +1,90 @@
+*********************Iim jijigken class uusgetsen shuu******************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace PushBlocks
+{
+    class Tile
+    {
+        public string Data { get; set; }
+        public SolidColorBrush Background { get; set; }
+    }
+}
+******************************Odooo Draw display class*******************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace PushBlocks
+{
+    public class DrawDisplay
+    {
+        
+        
+        public void DrawMap()
+        {
+            int maplenght = 10;
+            int mapwidth = 30;
+            Map.maparr = new string[maplenght, mapwidth];
+            Random random = new Random();
+            List<Tile> _tiles = new List<Tile>(); 
+
+            for (int i = 0; i < Map.maparr.GetLength(0); i++)
+            {
+                for (int j = 0; j < Map.maparr.GetLength(1); j++)
+                {
+                    _tiles.Add(new Tile()
+                    {
+
+                        Data = string.Format("maplenght {0}, mapwidth {1}", i, j),
+                        Background = new SolidColorBrush(Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256)))
+
+                    });
+                    
+                    if (i == 0 || i == Map.maparr.GetLength(0) - 1 || j == 0 || j == Map.maparr.GetLength(1) - 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Map.maparr[i, j] = "█";
+                    }
+                    else
+                    {
+                        Map.maparr[i, j] = " ";
+                    }
+                    Console.Write(Map.maparr[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+        public void DrawPlayer(Player player)
+        {
+            for (int i = 0; i < player.LENGTH; i++)
+            {
+                for (int j = 0; j < player.WIDTH; j++)
+                {
+                    Console.SetCursorPosition(player.X, player.Y);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(player.playerbody[i, j]);
+                    player.X++;
+                }
+                player.Y++;
+                player.X -= player.WIDTH;
+            }
+            player.Y -= player.LENGTH;
+        }
+        public List<Tile> Tiles
+        {
+            get { return _tiles; }
+            set { _tiles = value; }
+        }
+        public void DrawBlocks()
+        { 
+
+        }
+      
+    }
+}
