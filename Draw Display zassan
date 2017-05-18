@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+
+namespace PushBlocks
+{
+    public class DrawDisplay
+    {
+
+
+        public void DrawMap()
+        {
+            int maplenght = 16;
+            int mapwidth = 6;
+            string[] MapValues;
+              char[,] MapChar;
+              char CurrentReadChar;
+             
+              char WallChar = '█';
+            Map.maparr = new string[maplenght, mapwidth];
+            StreamReader fileLoader = new StreamReader("map.txt");
+            int lineCount = File.ReadAllLines("map.txt").Length;
+            int colsCount = fileLoader.ReadLine().Length;
+            MapChar = new char[lineCount, colsCount];
+            MapValues = File.ReadAllLines("map.txt" );
+
+            for (int i = 0; i < Map.maparr.GetLength(0) + 1; i++)
+            {
+                for (int j = 0; j < Map.maparr.GetLength(1) + 1; j++)
+                {
+                    CurrentReadChar = MapValues[i][j];
+                    switch (CurrentReadChar)
+                    {
+                        case '1':
+                            MapChar[i, j] = WallChar;
+                            break;
+
+                    if (i == 0 || i == Map.maparr.GetLength(0) - 1 || j == 0 || j == Map.maparr.GetLength(1) - 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Map.maparr[i, j] = "1";
+                    }
+                    else
+                    {
+                        Map.maparr[i, j] = " ";
+                    }
+                   
+                    }
+                    Console.Write(Map.maparr[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+      
+        public void DrawPlayer(Player player)
+        {
+            for (int i = 0; i < player.LENGTH; i++)
+            {
+                for (int j = 0; j < player.WIDTH; j++)
+                {
+                    Console.SetCursorPosition(player.X, player.Y);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(player.playerbody[i, j]);
+                    player.X++;
+                }
+                player.Y++;
+                player.X -= player.WIDTH;
+            }
+            player.Y -= player.LENGTH;
+        }
+
+
+        public void DrawBlocks()
+        {
+
+        }
+
+    }
+
+}
+***************************************map.txt****************
+11111111111111
+11110001000001
+10001110011101
+11111111111111
