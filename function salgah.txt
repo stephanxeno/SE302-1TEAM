@@ -1,0 +1,47 @@
+public void PushRight(int x,  int blck)
+        {
+
+            if (x == 1)
+            {
+                if (blck == -1)
+                {
+                    Console.SetCursorPosition(X - 1, Y);
+                }
+            }
+        }
+        public void PushLeft(int x,  int blck)
+        {
+
+            if (x == -1)
+            {
+                if (blck == 1)
+                {
+                    Console.SetCursorPosition(X + 1, Y);
+                }
+            }
+        }
+
+        public void PushUp( int y, int blck)
+        {
+
+            if (y == 1)
+            {
+                if (blck == 2)
+                {
+                    Console.SetCursorPosition(X, Y - 1);
+                }
+            }
+        }
+
+        public void PushDown( int y, int blck)
+        {
+            if (y == -1)
+            {
+                if (blck == -2)
+                {
+                    Console.SetCursorPosition(X, Y + 1);
+                }
+            }
+        }
+
+
